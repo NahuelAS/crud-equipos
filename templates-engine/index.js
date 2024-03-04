@@ -2,7 +2,8 @@ const fs = require('fs');
 const express = require('express');
 const multer = require('multer');
 
-//Guarda la Imagen en el disco. https://expressjs.com/en/resources/middleware/multer.html
+//https://expressjs.com/en/resources/middleware/multer.html
+//Guarda la Imagen en el disco con el nombre propio de la imagen. 
 const storadge = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, './uploads/imagenes');
@@ -15,6 +16,7 @@ const storadge = multer.diskStorage({
 const uploads = multer({storage: storadge});
 
 const exphbs = require('express-handlebars');
+const path = require('path');
 
 const PORT = 8080;
 const app = express();
@@ -166,14 +168,53 @@ app.post('/equipo/:id/editar', uploads.single('imagen'), (req, res) => {
     res.redirect('/');
 })
 
-//Borra un dato seleccionado
+// Ruta para borrar un dato seleccionado
 app.get('/borrar/:id', (req, res) => {
-    const equipo = fs.readFileSync('./data/equipos.json');
-    const jsonObj = JSON.parse(equipo);
-    const arr = jsonObj.filter(obj => obj.id !== Number(req.params.id));
-    fs.writeFileSync('./data/equipos.json', JSON.stringify(arr)); 
+    const idToDelete = Number(req.params.id);
+
+    // Leer el archivo JSON que contiene los datos
+    const equiposJson = fs.readFileSync('./data/equipos.json');
+    let equipos = JSON.parse(equiposJson);
+
+    // Filtrar los datos para eliminar el equipo correspondiente al ID proporcionado
+    const filteredEquipos = equipos.filter(equipo => equipo.id !== idToDelete);
+
+    // Guardar el nuevo arreglo de datos en el archivo JSON
+    fs.writeFileSync('./data/equipos.json', JSON.stringify(filteredEquipos));
+
+    // Obtener el nombre del archivo de imagen a eliminar basado en el ID del equipo
+    const imageName = filteredEquipos.find(equipo => equipo.id === idToDelete)?.crestUrl;
+
+    // Si se encontró un nombre de imagen correspondiente al ID del equipo
+    if (imageName) {
+        // Extraer el nombre del archivo de la cadena crestUrl
+        const filename = imageName.substring(imageName.lastIndexOf('/') + 1);
+
+        // Construir la ruta completa al archivo de imagen
+        const imagePath = path.join(__dirname, 'public', 'imagenes', filename);
+        console.log(imagePath);
+        // Verificar si la imagen existe
+        if (fs.existsSync(imagePath)) {
+            // Eliminar la imagen del directorio
+            fs.unlinkSync(imagePath);
+        }
+    }
+
     res.redirect('/');
 });
+
+
+
+
+
+    //Borra un dato seleccionado
+// app.get('/borrar/:id', (req, res) => {
+//     const equipo = fs.readFileSync('./data/equipos.json');
+//     const jsonObj = JSON.parse(equipo);
+//     const arr = jsonObj.filter(obj => obj.id !== Number(req.params.id));
+//     fs.writeFileSync('./data/equipos.json', JSON.stringify(arr)); 
+//     res.redirect('/');
+// });
 
 
 app.listen(8080);
