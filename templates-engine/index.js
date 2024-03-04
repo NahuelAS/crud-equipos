@@ -203,10 +203,6 @@ app.get('/borrar/:id', (req, res) => {
     res.redirect('/');
 });
 
-
-
-
-
     //Borra un dato seleccionado
 // app.get('/borrar/:id', (req, res) => {
 //     const equipo = fs.readFileSync('./data/equipos.json');
