@@ -15,13 +15,14 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(`${__dirname}/uploads`));
 
-
+//Muestra el objeto de los equipos
 app.get('/equipos', (req, res) => {
     const equiposData = fs.readFileSync('./data/equipos.json');
     res.setHeader('Content-Type', 'application/json');
     res.send(equiposData);
 });
 
+//Muestra Listado de equipos. En layout vista_equipos.handlebars y en home.handlebars se utiliza tambien
 app.get('/', (req, res) => {
     const equipos = fs.readFileSync('./data/equipos.json');
     const jsonObj = JSON.parse(equipos);
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
     });
 });
 
+//Hace render de los valores para mostrarlos en index.handlebar por medio del layout principal.handlebars
 app.get('/equipos/:id/mirar', (req, res) => {
     const equiposData = fs.readFileSync('./data/equipos.json');
     const jsonObj = JSON.parse(equiposData);
@@ -58,12 +60,14 @@ app.get('/equipos/:id/mirar', (req, res) => {
     });
 });
 
+//hace render de vista_equipos cuando se pasa /form
 app.get('/form', (req, res) => {
     res.render('form_registro', {
         layout: 'vista_equipos',
     });
 });
 
+//recibe por POST los datos enviados desde el formulario de form_registro
 app.post('/form', uploads.single('imagen'), (req, res) => {
     let equipos = fs.readFileSync('./data/equipos.json');
     let jsonObj = JSON.parse(equipos);
@@ -87,13 +91,16 @@ app.post('/form', uploads.single('imagen'), (req, res) => {
     res.redirect('/');
 });
 
-function idAleatorio(arr){
+// Funcion creadora de un numero random que es asignado al ID del equipo nuevo
+function idAleatorio(a){
     let id = Math.ceil(Math.random() * 2000);
-    while(arr.find(objeto => objeto.id === id)) {
+    while(a.find(objeto => objeto.id === id)) {
         id = Math.ceil(Math.random() * 2000);
     }
     return id;
 }
+
+
 
 app.listen(8080);
 console.log(`Servidor en funcionamiento en: http://localhost:${PORT}`);
