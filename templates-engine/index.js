@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
     const equipos = fs.readFileSync('./data/equipos.json');
     const jsonObj = JSON.parse(equipos);
 
-    res.render('home_ejemplo', {
-        layout: 'ejemplo',
+    res.render('home', {
+        layout: 'vista_equipos',
         data: {
             jsonObj,
         },
@@ -47,10 +47,17 @@ app.get('/equipos/:id', (req, res) => {
             nombre: objEquipo.name,
             imagen: objEquipo.crestUrl,
             fundacion: objEquipo.founded,
-            estadio: objEquipo.venue
+            estadio: objEquipo.venue,
+            nombreCorto: objEquipo.shortName,
+            abreviatura: objEquipo.tla,
+            direccion: objEquipo.address,
+            telefono: objEquipo.phone,
+            web: objEquipo.website,
+            colores: objEquipo.clubColors,
         },
     });
 });
+
 
 
 app.listen(8080);

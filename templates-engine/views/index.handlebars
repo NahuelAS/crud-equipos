@@ -10,8 +10,7 @@
     }
 
     .table {
-        padding: 20px;
-        margin-left: 450px;
+        padding: 10px;
     }
 
     th{
@@ -22,6 +21,7 @@
     td{
         border: 2px black solid;
         padding: 15px;
+        text-align: center;
     }
 </style>
 
@@ -35,19 +35,28 @@
     <thead>
         <tr>
             <th scope="col">Nombre</th>
+            <th scope="col">Nombre Corto</th>
+            <th scope="col">Abreviatura</th>
+            <th scope="col">Colores</th>
             <th scope="col">Pais</th>
+            <th scope="col">Direccion</th>
             <th scope="col">Estadio</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Web</th>
             <th scope="col">Fecha de Fundacion</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>{{data.nombre}}</td>
-        
+            <td>{{data.nombreCorto}}</td>
+            <td>{{data.abreviatura}}</td>
+            <td>{{data.colores}}</td>
             <td>{{data.pais}}</td>
-        
+            <td>{{data.direccion}}</td>
             <td>{{data.estadio}}</td>          
-        
+            <td>{{data.telefono}}</td>
+            <td><a href="{{data.web}}">{{data.web}}</a></td>
             <td>{{data.fundacion}}</td>            
         </tr>
     </tbody>
