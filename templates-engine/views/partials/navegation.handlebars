@@ -1,4 +1,27 @@
-<table>
+<style>
+
+        .table {
+        padding: 20px;
+        margin-left: 25%;
+    }
+
+    th{
+        border: 2px black solid;
+        padding: 15px;
+    }
+
+    td{
+        border: 2px black solid;
+        padding: 15px;
+    }
+
+    td a {
+        text-decoration: none;
+    }
+
+</style>
+
+<table class="table">
     <thead>
         <tr>
             <th>#</th>
@@ -14,7 +37,7 @@
             <th>{{item.id}}</th>
             <td>{{item.name}}</td>
             <td>{{item.area.name}}</td>
-            <td>Botones de acciones</td>
+            <td><a href="/equipos/{{item.id}}">Ver</a></td>
         </tr>
         {{/each}}
     </tbody>

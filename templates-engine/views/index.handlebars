@@ -3,8 +3,29 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border: 2px solid black;
+        margin: 50px 50px 50px 35%;
+        width: 350px;
+        height: 350px;
+    }
+
+    .table {
+        padding: 20px;
+        margin-left: 450px;
+    }
+
+    th{
+        border: 2px black solid;
+        padding: 15px;
+    }
+
+    td{
+        border: 2px black solid;
+        padding: 15px;
     }
 </style>
+
+<button><a href="http://localhost:8080">Volver</a></button>
 
 <div class="container">
     <img src="{{data.imagen}}" alt="Escudo del Equipo">
@@ -13,26 +34,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Informacion</th>
-            <th>Valor</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Pais</th>
+            <th scope="col">Estadio</th>
+            <th scope="col">Fecha de Fundacion</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Nombre</td>
             <td>{{data.nombre}}</td>
-        </tr>
-        <tr>
-            <td>Pais</td>
+        
             <td>{{data.pais}}</td>
-        </tr>
-        <tr>
-            <td>Estadio</td>
-            <td>{{data.estadio}}</td>
-        </tr>
-        <tr>
-            <td>Fecha de Fundacion</td>
-            <td>{{data.fundacion}}</td>
+        
+            <td>{{data.estadio}}</td>          
+        
+            <td>{{data.fundacion}}</td>            
         </tr>
     </tbody>
 </table>

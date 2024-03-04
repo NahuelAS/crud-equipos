@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 app.get('/equipos/:id', (req, res) => {
     const equiposData = fs.readFileSync('./data/equipos.json');
     const jsonObj = JSON.parse(equiposData);
-    const objEquipo = jsonObj.find(objeto => objeto.id === Number(req.param.id));
+    const objEquipo = jsonObj.find(objeto => objeto.id === Number(req.params.id));
 
     res.render('index', {
         layout: 'principal',
