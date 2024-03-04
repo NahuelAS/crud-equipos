@@ -10,11 +10,18 @@
         width: 350px;
         height: 350px;
     }
-
+    .container img {
+        width: 300px;
+        height: 300px;
+    }
     .table {
         padding: 10px;
     }
 
+    a {
+        text-decoration: none;
+    }
+    
     th{
         border: 2px black solid;
         padding: 15px;
@@ -63,5 +70,5 @@
             <td>{{data.fundacion}}</td>            
         </tr>
     </tbody>
-    <a href="/form/{{data.id}}/editar" role="button">EDITAR</a>
-</table>
+    <button><a href="/form/{{data.id}}/editar" role="button">EDITAR</a></button>
+</table> 
