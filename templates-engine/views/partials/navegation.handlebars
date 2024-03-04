@@ -1,0 +1,22 @@
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Equipos</th>
+            <th>Pais</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {{#each items as |item|}}
+        <tr>
+            <th>{{item.id}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.area.name}}</td>
+            <td>Botones de acciones</td>
+        </tr>
+        {{/each}}
+    </tbody>
+
+</table>

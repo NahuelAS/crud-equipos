@@ -1,0 +1,38 @@
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<div class="container">
+    <img src="{{data.imagen}}" alt="Escudo del Equipo">
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Informacion</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Nombre</td>
+            <td>{{data.nombre}}</td>
+        </tr>
+        <tr>
+            <td>Pais</td>
+            <td>{{data.pais}}</td>
+        </tr>
+        <tr>
+            <td>Estadio</td>
+            <td>{{data.estadio}}</td>
+        </tr>
+        <tr>
+            <td>Fecha de Fundacion</td>
+            <td>{{data.fundacion}}</td>
+        </tr>
+    </tbody>
+</table>

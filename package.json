@@ -4,8 +4,8 @@
   "description": "Crud de equipos con express y handlebars",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index-3.js",
-    "dev:express": "nodemon ./express/index-e2.js",
+    "dev": "nodemon index.js",
+    "dev:express": "nodemon ./express/index.js",
     "dev:template": "cd ./templates-engine && nodemon --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
