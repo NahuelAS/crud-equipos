@@ -1,4 +1,10 @@
 {{!-- Se muestra en vista_equipos.handlebars --}}
 {{!-- El boton agregar dirige hacia form_registros --}}
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+
 <label>Hay {{data.jsonObj.length}} Equipos <button><a href="/form">Agregar</a></button></label> 
 {{>navegation items = data.jsonObj}}

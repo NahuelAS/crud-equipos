@@ -100,6 +100,7 @@ function idAleatorio(a){
     return id;
 }
 
+// Agarra el formulario de form_registo.handlebars
 app.get('/form/:id/editar', (req, res) => {
     res.render('form_editor', {
         layout: 'editarBody',
@@ -109,7 +110,7 @@ app.get('/form/:id/editar', (req, res) => {
     });
 });
 
-
+// Capturas los datos por el metodo POST que se van a cambiar y hace el cambio
 app.post('/equipo/:id/editar', uploads.single('imagen'), (req, res) => {
     const equipo = fs.readFileSync('./data/equipos.json');
     const jsonObj = JSON.parse(equipo);
@@ -154,6 +155,15 @@ app.post('/equipo/:id/editar', uploads.single('imagen'), (req, res) => {
     fs.writeFileSync('./data/equipos.json', JSON.stringify(jsonObj));
     res.redirect('/');
 })
+
+app.get('/borrar/:id', (req, res) => {
+    const equipo = fs.readFileSync('./data/equipos.json');
+    const jsonObj = JSON.parse(equipo);
+    const arr = jsonObj.filter(obj => obj.id !== Number(req.params.id));
+    fs.writeFileSync('./data/equipos.json', JSON.stringify(arr)); 
+    res.redirect('/');
+});
+
 
 app.listen(8080);
 console.log(`Servidor en funcionamiento en: http://localhost:${PORT}`);
