@@ -2,7 +2,17 @@ const fs = require('fs');
 const express = require('express');
 const multer = require('multer');
 
-const uploads = multer({dest: './uploads/imagenes'});
+//Guarda la Imagen en el disco. https://expressjs.com/en/resources/middleware/multer.html
+const storadge = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads/imagenes');
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+const uploads = multer({storage: storadge});
 
 const exphbs = require('express-handlebars');
 
@@ -156,6 +166,7 @@ app.post('/equipo/:id/editar', uploads.single('imagen'), (req, res) => {
     res.redirect('/');
 })
 
+//Borra un dato seleccionado
 app.get('/borrar/:id', (req, res) => {
     const equipo = fs.readFileSync('./data/equipos.json');
     const jsonObj = JSON.parse(equipo);
