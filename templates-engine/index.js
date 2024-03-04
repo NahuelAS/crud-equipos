@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/equipos/:id', (req, res) => {
+app.get('/equipos/:id/mirar', (req, res) => {
     const equiposData = fs.readFileSync('./data/equipos.json');
     const jsonObj = JSON.parse(equiposData);
     const objEquipo = jsonObj.find(objeto => objeto.id === Number(req.params.id));
@@ -58,7 +58,42 @@ app.get('/equipos/:id', (req, res) => {
     });
 });
 
+app.get('/form', (req, res) => {
+    res.render('form_registro', {
+        layout: 'vista_equipos',
+    });
+});
 
+app.post('/form', uploads.single('imagen'), (req, res) => {
+    let equipos = fs.readFileSync('./data/equipos.json');
+    let jsonObj = JSON.parse(equipos);
+
+    jsonObj.push({
+        "id": idAleatorio(jsonObj),
+        "crestUrl": "/imagenes/" + req.file.filename,
+        "name": req.body.nombre,
+        "shortName": req.body.nombreCorto, 
+        "tla": req.body.abreviatura,
+        "clubColors": req.body.colores, 
+        "area": {"name": req.body.pais},
+        "address": req.body.direccion,
+        "venue": req.body.estadio,
+        "phone": req.body.telefono,
+        "website": req.body.web,
+        "founded": req.body.fundacion,
+    })
+
+    fs.writeFileSync('./data/equipos.json', JSON.stringify(jsonObj));
+    res.redirect('/');
+});
+
+function idAleatorio(arr){
+    let id = Math.ceil(Math.random() * 2000);
+    while(arr.find(objeto => objeto.id === id)) {
+        id = Math.ceil(Math.random() * 2000);
+    }
+    return id;
+}
 
 app.listen(8080);
 console.log(`Servidor en funcionamiento en: http://localhost:${PORT}`);
