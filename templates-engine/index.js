@@ -35,14 +35,14 @@ app.get('/', (req, res) => {
     });
 });
 
-//Hace render de los valores para mostrarlos en index.handlebar por medio del layout principal.handlebars
+//Hace render de los valores para mostrarlos en index.handlebar por medio del layout principalBody.handlebars
 app.get('/equipos/:id/mirar', (req, res) => {
     const equiposData = fs.readFileSync('./data/equipos.json');
     const jsonObj = JSON.parse(equiposData);
-    const objEquipo = jsonObj.find(objeto => objeto.id === Number(req.params.id));
+    const objEquipo = jsonObj.find(obj => obj.id === Number(req.params.id));
 
     res.render('index', {
-        layout: 'principal',
+        layout: 'principalBody',
         data: {
             id: objEquipo.id,
             pais: objEquipo.area.name,
@@ -100,7 +100,60 @@ function idAleatorio(a){
     return id;
 }
 
+app.get('/form/:id/editar', (req, res) => {
+    res.render('form_editor', {
+        layout: 'editarBody',
+        data: {
+            id: req.params.id,
+        },
+    });
+});
 
+
+app.post('/equipo/:id/editar', uploads.single('imagen'), (req, res) => {
+    const equipo = fs.readFileSync('./data/equipos.json');
+    const jsonObj = JSON.parse(equipo);
+    const i = jsonObj.findIndex(obj => obj.id === Number(req.params.id));
+
+    if (i !== -1) { 
+        if (req.file !== undefined){
+            jsonObj[i].crestUrl = "/imagenes/" + req.file.filename;
+        }
+        if (req.body.nombre !== ""){
+            jsonObj[i].name = req.body.nombre;
+        }
+        if(req.body.nombreCorto !== ""){
+            jsonObj[i].shortName = req.body.nombreCorto;
+        }
+        if(req.body.abreviatura !== ""){
+            jsonObj[i].tla = req.body.abreviatura;
+        }
+        if(req.body.colores !== ""){
+            jsonObj[i].clubColors = req.body.colores;
+        }
+        if (req.body.direccion !== ""){
+            jsonObj[i].address = req.body.direccion;
+        }
+        if (req.body.pais !== ""){
+            jsonObj[i].area.name = req.body.pais;
+        }
+        if(req.body.estadio !== ""){
+            jsonObj[i].venue = req.body.estadio;
+        }
+        if (req.body.telefono !== ""){
+            jsonObj[i].phone = req.body.telefono;
+        }
+        if (req.body.web !== ""){
+            jsonObj[i].website = req.body.web;
+        }
+        if(req.body.fundacion !== ""){
+            jsonObj[i].founded = req.body.fundacion;
+        }
+}
+
+    fs.writeFileSync('./data/equipos.json', JSON.stringify(jsonObj));
+    res.redirect('/');
+})
 
 app.listen(8080);
 console.log(`Servidor en funcionamiento en: http://localhost:${PORT}`);

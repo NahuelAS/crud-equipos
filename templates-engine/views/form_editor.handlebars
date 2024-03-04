@@ -1,0 +1,37 @@
+<form action="/equipo/{{data.id}}/editar" method="post" enctype="multipart/form-data">
+    <br>
+    <label for="imagen">Logo del Equipo: </label>
+    <input type="file" name="imagen" id="imagen">
+<br><br>
+    <label for="nombre">Nombre del Equipo: </label>
+    <input type="text" id="nombre" name="nombre">
+<br><br>
+    <label for="nombreCorto">Nombre Corto: </label>
+    <input type="text" name="nombreCorto" id="nombreCorto">
+<br><br>
+    <label for="abreviatura">Abreviatura: </label>
+    <input type="text" name="abreviatura" id="abreviatura" maxlength="3" minlength="3">
+<br><br>
+    <label for="colores">Colores: </label>
+    <input type="text" name="colores" id="colores">
+<br><br>
+    <label for="pais">Pais: </label>
+    <input type="text" id="pais" name="pais">
+<br><br>
+    <label for="direccion">Direccion: </label>
+    <input type="text" name="direccion" id="direccion">
+<br><br>
+    <label for="estadio">Estadio: </label>
+    <input type="text" name="estadio" id="estadio">
+<br><br>
+    <label for="telefono">Telefono: </label>
+    <input type="text" name="telefono" id="telefono">
+<br><br>
+    <label for="web">Sitio Web: </label>
+    <input type="text" name="web" id="web">
+<br><br>
+    <label for="fundacion">Fecha de su Fundacion: </label>
+    <input type="number" name="fundacion" id="fundacion">
+<br><br>
+    <input type="submit" value="Editar">
+</form>
